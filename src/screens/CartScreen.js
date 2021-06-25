@@ -1,15 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../layouts/Layout";
-import { getCart } from "../components/cartHelpers";
+import { getCart } from "../utils/cartHelpers";
 
-const Cart = () => {
+const Cart = (props) => {
   const [items, setItems] = useState([]);
-  //const [count, setCount] = useState(product.count);
+  // const [count, setCount] = useState(product.count);
+  let cartItems = JSON.parse(localStorage.getItem("cart"));
 
-  useEffect(() => {
-    setItems(getCart());
-  }, []);
+  const getTotal = () => {
+    //console.log("cart items", cartItems);
+    let total = cartItems.reduce((a, c) => a + c.price * c.count, 0);
+
+    return total;
+
+    //  Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :
+    // ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+  };
+
+  const handleQuantityChange = (e, p) => {
+    console.log("available quantity", p);
+    console.log("value", e.target.value);
+    let count = e.target.value < 1 ? 1 : e.target.value;
+
+    if (count > p.quantity) {
+      // toast.error(`Max available quantity: ${p.quantity}`);
+      console.log("max quantity reached");
+      return;
+    }
+
+    let cart = [];
+
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+
+      cart.map((product, i) => {
+        if (product._id === p._id) {
+          cart[i].count = count;
+        }
+      });
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      window.location.reload();
+    }
+  };
 
   const showItems = (items) => {
     return (
@@ -22,25 +58,22 @@ const Cart = () => {
                 <div className="block">
                   <div className="flex justify-between border-b border-gray-darker">
                     <div className="w-1/2 pl-8 pb-2">
-                      <span text-sm uppercase>
-                        Product Name
-                      </span>
+                      <span className="text-sm uppercase">Product Name</span>
                     </div>
                     <div className="w-1/4 pb-2 text-right mr-12">
-                      <span text-sm uppercase>
-                        Quantity
-                      </span>
+                      <span className="text-sm uppercase">Quantity</span>
                     </div>
                     <div className="w-1/4 pb-2 text-right mr-12">
-                      <span text-sm uppercase>
-                        Price
-                      </span>
+                      <span className="text-sm uppercase">Price</span>
                     </div>
                   </div>
                 </div>
 
                 {items.map((product, i) => (
-                  <div className="py-3 border-b border-grey-300 flex flex-row justify-between items-center mb-0">
+                  <div
+                    className="py-3 border-b border-grey-300 flex flex-row justify-between items-center mb-0"
+                    key={i}
+                  >
                     <i className="fas fa-times text-grey-300 text-xl mr-6 cursor-pointer"></i>
                     <div className="w-1/2 flex items-center border-b-0 border-grey-300 pt-0 pb-0 text-left">
                       <div className="w-20 mx-0 relative pr-0">
@@ -66,7 +99,8 @@ const Cart = () => {
                             type="number"
                             id="quantity-form-desktop"
                             className="form-input form-quantity rounded-r-none w-16 py-0 px-2 text-center"
-                            placeholder="1"
+                            value={product.count}
+                            onChange={(e) => handleQuantityChange(e, product)}
                           />
                           {/* <div className="flex flex-col">
                             <span className="px-1 bg-white border border-l-0 border-grey-darker flex-1 rounded-tr cursor-pointer">
@@ -81,7 +115,9 @@ const Cart = () => {
                     </div>
 
                     <div className="w-1/4 text-right pr-10  pb-4">
-                      <span className="">$1045</span>
+                      <span className="">
+                        $ {product.price * product.count}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -93,18 +129,31 @@ const Cart = () => {
               <h4 className="text-gray-600 text-2xl pb-3  ">Cart Totals</h4>
 
               <div className="mb-12 pt-4">
-                <p className="text-gray-600 pt-1 pb-2">Cart Total</p>
-                <div class="border-b border-gray-500 pt-2 pb-1 flex justify-between">
+                <div className=" pt-2 pb-1 flex justify-between">
+                  <span>Subtotal</span>
+                  <span>-$ {getTotal()}</span>
+                </div>
+                <div className="border-b border-gray-500 pt-2 pb-1 flex justify-between">
                   <span>Coupon applied</span>
                   <span>-$36</span>
                 </div>
-                <div class="pt-3 flex justify-between">
+                <div className="border-b border-gray-500 pt-2 pb-1 flex justify-between">
+                  <span>Payment (Available)</span>
+                  <span>Cash On Delivery</span>
+                </div>
+                <div className="pt-3 flex justify-between">
                   <span>Total</span>
-                  <span>$200</span>
+
+                  <span>$ {getTotal()}</span>
                 </div>
               </div>
 
-              <button class="block w-full py-2 bg-primary border border-primary text-center text-white px-8 rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">
+              <button
+                type="button"
+                onClick={checkoutHandler}
+                disabled={cartItems.length === 0}
+                className="block w-full py-2 bg-primary border border-primary text-center text-white px-8 rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium"
+              >
                 Proceed to Checkout
               </button>
             </div>
@@ -132,6 +181,13 @@ const Cart = () => {
     </h2>
   );
 
+  const checkoutHandler = () => {
+    props.history.push("/signin?redirect=checkout");
+  };
+
+  useEffect(() => {
+    setItems(getCart());
+  }, []);
   return (
     <Layout>
       {cartBreadcrumbs()}
