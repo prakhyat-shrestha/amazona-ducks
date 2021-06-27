@@ -17,6 +17,11 @@ const Menu = ({ history }) => {
 
   const dispatch = useDispatch();
 
+  const logoutHandler = () => {
+    dispatch(signout());
+    history.push("/");
+  };
+
   return (
     <nav className="bg-gray-800">
       <div className="container flex ">
@@ -92,7 +97,7 @@ const Menu = ({ history }) => {
               <span
                 className="text-gray-300 hover:text-white transition"
                 style={{ cursor: "pointer" }}
-                onClick={() => dispatch(signout())}
+                onClick={logoutHandler}
               >
                 Log Out
               </span>
