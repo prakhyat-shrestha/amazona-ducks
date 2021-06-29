@@ -1,19 +1,28 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Menu from "./Menu";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 
 const AccountLayout = ({ className, children }) => {
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
+  const { user } = userInfo;
+
   const userLinks = () => {
     return (
       <div className="w-full divide-y divide-gray-200 divider-dashed tracking-wide">
         <Link className=" flex items-center px-1 py-3 " to="/user/dashboard">
           <span className="text-gray-600 text-base">Dashboard</span>
         </Link>
-        <Link className="flex items-center px-1 py-3 " to="/">
+        <Link className="flex items-center px-1 py-3 " to="/user/orders">
           <span className="text-gray-600 text-base">Orders</span>
         </Link>
-        <Link className="flex items-center px-1 py-3 " to="/profile/update">
+        <Link
+          className="flex items-center px-1 py-3 "
+          to={`/profile/${user._id}`}
+        >
           <span className="text-gray-600 text-base">Account Details</span>
         </Link>
         <Link className="flex items-center px-1 py-3 " to="/signout">

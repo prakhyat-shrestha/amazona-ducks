@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { BrowserRouter, Switch, Link, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import PrivateRoute from "./utils/PrivateRoute";
 import AdminRoute from "./utils/AdminRoute";
@@ -17,11 +16,11 @@ import AddCategory from "./Admin/screens/AddCategory";
 import AddProduct from "./Admin/screens/AddProduct";
 import UpdateProduct from "./Admin/screens/UpdateProduct";
 import ManageProducts from "./Admin/screens/ManageProducts";
+import Orders from "./Admin/screens/Orders";
+import ProfileScreen from "./screens/ProfileScreen";
+import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 
 function App() {
-  // const cart = useSelector((state) => state.cart);
-  // const { cartItems } = cart;
-
   return (
     <BrowserRouter>
       <Switch>
@@ -37,6 +36,12 @@ function App() {
         <Route path="/signin" exact component={SigninScreen}></Route>
         <Route path="/register" exact component={RegisterScreen}></Route>
         <PrivateRoute path="/user/dashboard" exact component={Dashboard} />
+        <PrivateRoute path="/profile/:userId" exact component={ProfileScreen} />
+        <PrivateRoute
+          path="/user/orders"
+          exact
+          component={OrderHistoryScreen}
+        />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute path="/create/category" exact component={AddCategory} />
         <AdminRoute path="/create/product" exact component={AddProduct} />
@@ -46,6 +51,7 @@ function App() {
           component={UpdateProduct}
         />
         <AdminRoute path="/admin/products" exact component={ManageProducts} />
+        <AdminRoute path="/admin/orders" exact component={Orders} />
       </Switch>
     </BrowserRouter>
   );

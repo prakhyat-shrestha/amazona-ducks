@@ -47,6 +47,13 @@ const AccountLayout = ({ className, children, history }) => {
             <i className="fas fa-box  w-5 mr-3"></i>
             mangage products
           </Link>
+          <Link
+            to="/admin/orders"
+            className="flex items-center my-1 px-4 py-3 text-white border-l-4 border-trasparent hover:border-blue-600 hover:bg-gray-900 transition"
+          >
+            <i className="fas fa-box  w-5 mr-3"></i>
+            mangage orders
+          </Link>
           <span
             onClick={logoutHandler}
             className="flex items-center my-1 px-4 py-3 text-white border-l-4 border-trasparent hover:border-blue-600 hover:bg-gray-900 transition"

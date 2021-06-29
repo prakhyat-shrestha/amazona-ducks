@@ -4,6 +4,9 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_MINE_LIST_REQUEST,
+  ORDER_MINE_LIST_FAIL,
+  ORDER_MINE_LIST_SUCCESS,
 } from "../constants/orderConstants";
 
 import { API } from "../config";
@@ -40,5 +43,27 @@ export const createOrder = (order) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const listOrderMine = () => async (dispatch, getState) => {
+  dispatch({ type: ORDER_MINE_LIST_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  const { user } = userInfo;
+  try {
+    const { data } = await Axios.get(`${API}/orders/by/user/${user._id}`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: ORDER_MINE_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message });
   }
 };
