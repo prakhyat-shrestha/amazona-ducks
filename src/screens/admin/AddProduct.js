@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminLayout from "../layouts/AdminLayout";
-import { getCategories } from "../actions/categoryActions";
-import { createProduct } from "../actions/productActions";
+import AdminLayout from "../../layouts/AdminLayout";
+import { getCategories } from "../../actions/categoryActions";
+import { createProduct } from "../../actions/productActions";
 
 const AddProduct = () => {
   const [values, setValues] = useState({

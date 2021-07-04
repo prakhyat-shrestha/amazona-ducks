@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminLayout from "../layouts/AdminLayout";
-import { getCategories } from "../actions/categoryActions";
-import { detailsProduct, updateProduct } from "../actions/productActions";
+import AdminLayout from "../../layouts/AdminLayout";
+import { getCategories } from "../../actions/categoryActions";
+import { detailsProduct, updateProduct } from "../../actions/productActions";
 
-import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
+import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
 
 const UpdateProduct = ({ match, history }) => {
   const productId = match.params.productId;

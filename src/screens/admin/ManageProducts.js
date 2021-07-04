@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 import { Link } from "react-router-dom";
 
-import { listProducts, deleteProduct } from "../actions/productActions";
+import { listProducts, deleteProduct } from "../../actions/productActions";
 
-import { PRODUCT_DELETE_RESET } from "../constants/productConstants";
+import { PRODUCT_DELETE_RESET } from "../../constants/productConstants";
 
 const ManageProducts = () => {
   const productList = useSelector((state) => state.adminProductList);

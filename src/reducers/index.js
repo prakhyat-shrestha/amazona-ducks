@@ -1,29 +1,27 @@
 import { combineReducers } from "redux";
 
 import { cartReducer } from "./cartReducers";
-import { productListReducer, productDetailsReducer } from "./productReducers";
+import {
+  productListReducer,
+  productDetailsReducer,
+  productCreateReducer,
+  productDeleteReducer,
+  productUpdateReducer,
+} from "./productReducers";
 import {
   userRegisterReducer,
   userSigninReducer,
   userDetailsReducer,
   userUpdateProfileReducer,
 } from "./userReducers";
-import { orderCreateReducer, orderMineListReducer } from "./orderReducers";
+import {
+  orderCreateReducer,
+  orderMineListReducer,
+  orderListReducer,
+} from "./orderReducers";
 
 // admin
-import {
-  categoryCreateReducer,
-  categoryListReducer,
-} from "../Admin/reducers/categoryReducers";
-import {
-  productCreateReducer,
-  productDeleteReducer,
-  adminProductDetailsReducer,
-  adminProductListReducer,
-  productUpdateReducer,
-} from "../Admin/reducers/productReducers";
-
-import { orderListReducer } from "../Admin/reducers/orderReducers";
+import { categoryCreateReducer, categoryListReducer } from "./categoryReducers";
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -39,8 +37,6 @@ const rootReducer = combineReducers({
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
   productDelete: productDeleteReducer,
-  adminProductList: adminProductListReducer,
-  adminProductDetails: adminProductDetailsReducer,
   orderList: orderListReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,

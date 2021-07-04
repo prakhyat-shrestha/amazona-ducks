@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import AdminLayout from "../layouts/AdminLayout";
-import { createCategory } from "../actions/categoryActions";
+import AdminLayout from "../../layouts/AdminLayout";
+import { createCategory } from "../../actions/categoryActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 

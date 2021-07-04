@@ -11,12 +11,12 @@ import RegisterScreen from "./screens/RegisterScreen";
 import CheckoutScreen from "./screens/CheckoutScreen";
 import OrderScreen from "./screens/OrderScreen";
 import Dashboard from "./screens/DashboardScreen";
-import AdminDashboard from "./Admin/screens/AdminDashboard";
-import AddCategory from "./Admin/screens/AddCategory";
-import AddProduct from "./Admin/screens/AddProduct";
-import UpdateProduct from "./Admin/screens/UpdateProduct";
-import ManageProducts from "./Admin/screens/ManageProducts";
-import Orders from "./Admin/screens/Orders";
+import AdminDashboard from "./screens/admin/AdminDashboard";
+import AddCategory from "./screens/admin/AddCategory";
+import AddProduct from "./screens/admin/AddProduct";
+import UpdateProduct from "./screens/admin/UpdateProduct";
+import ManageProducts from "./screens/admin/ManageProducts";
+import Orders from "./screens/admin/Orders";
 import ProfileScreen from "./screens/ProfileScreen";
 import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 

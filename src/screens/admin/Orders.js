@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 //import { isAuthenticated } from "../auth";
 //import { Link } from "react-router-dom";
 //import { listOrders, getStatusValues, updateOrderStatus } from "./apiAdmin";
 
-import { listOrders } from "../actions/orderActions";
+import { listOrders } from "../../actions/orderActions";
 //import moment from "moment";
 
 const Orders = () => {

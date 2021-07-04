@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 import { isAuthenticated } from "../../utils/authHelpers";
 import { Link } from "react-router-dom";
 

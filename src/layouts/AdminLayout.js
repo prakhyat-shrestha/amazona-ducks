@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { signout } from "../../actions/userActions";
+import { signout } from "../actions/userActions";
 
 const AccountLayout = ({ className, children, history }) => {
   const dispatch = useDispatch();
