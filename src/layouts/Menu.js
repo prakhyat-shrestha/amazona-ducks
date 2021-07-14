@@ -23,15 +23,15 @@ const Menu = ({ history }) => {
   };
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="menu-bg py-3">
       <div className="container flex ">
         {/* all category */}
-        <div className="px-8 py-4 bg-primary flex items-center cursor-pointer relative group">
+        {/* <div className="px-8 py-4 bg-primary flex items-center cursor-pointer relative group">
           <span className="text-white">
             <i className="fas fa-bars"></i>
           </span>
           <span className="capitalize ml-2 text-white">All Categories</span>
-        </div>
+        </div> */}
         {/* all category ends*/}
         {/* navbar links */}
         <div className="flex items-center justify-between flex-grow pl-12">
@@ -41,7 +41,42 @@ const Menu = ({ history }) => {
               to="/"
               style={isActive(history, "/")}
             >
-              Home
+              Cameras
+            </Link>
+            <Link
+              className="text-gray-300 hover:text-white transition"
+              to="/"
+              style={isActive(history, "/")}
+            >
+              Lenses
+            </Link>
+            <Link
+              className="text-gray-300 hover:text-white transition"
+              to="/"
+              style={isActive(history, "/")}
+            >
+              Camera Accessories
+            </Link>
+            <Link
+              className="text-gray-300 hover:text-white transition"
+              to="/"
+              style={isActive(history, "/")}
+            >
+              Lens Accessories
+            </Link>
+            <Link
+              className="text-gray-300 hover:text-white transition"
+              to="/"
+              style={isActive(history, "/")}
+            >
+              Lighting & Flashes
+            </Link>
+            <Link
+              className="text-gray-300 hover:text-white transition"
+              to="/"
+              style={isActive(history, "/")}
+            >
+              Accessories
             </Link>
 
             <Link
@@ -85,8 +120,8 @@ const Menu = ({ history }) => {
                 </Link>
                 <Link
                   className="text-gray-300 hover:text-white transition"
-                  to="/signup"
-                  style={isActive(history, "/signup")}
+                  to="/register"
+                  style={isActive(history, "/register")}
                 >
                   Register
                 </Link>

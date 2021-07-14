@@ -11,6 +11,7 @@ import { listProducts } from "../actions/productActions";
 import ProductCard from "../components/ProductCard";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import CategoryHome from "../components/CategoryHome";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const HomeScreen = () => {
     <Layout>
       <Banner />
       <Feature />
+
+      <CategoryHome />
 
       {loading ? (
         <LoadingBox></LoadingBox>

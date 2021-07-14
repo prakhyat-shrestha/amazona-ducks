@@ -104,7 +104,7 @@ const RegisterScreen = (props) => {
         </form>
         <p className="mt-4 text-gray-600 text-center">
           Already have an account{" "}
-          <Link to="/" className="text-primary">
+          <Link to="/signin" className="text-primary">
             Login now
           </Link>
         </p>

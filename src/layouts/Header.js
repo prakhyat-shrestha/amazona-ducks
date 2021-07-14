@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-//import { itemTotal } from "./cartHelpers";
+import { itemTotal } from "../utils/cartHelpers";
 
 const Header = () => {
   return (
@@ -9,7 +9,11 @@ const Header = () => {
       <div className="container flex items-center justify-between">
         {/* logo */}
         <Link to="/">
-          <img src="../images/logo.svg" className="w-32 " alt="logo" />
+          <img
+            src="../images/logo-camerapasal.svg"
+            className="w-44"
+            alt="logo"
+          />
         </Link>
         {/* search bar */}
         <SearchBar />
@@ -36,7 +40,7 @@ const Header = () => {
             </div>
             <div className="text-xs leading-3">Cart</div>
             <span className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-              {/* {itemTotal()} */}5
+              {itemTotal()}
             </span>
           </Link>
           <Link
