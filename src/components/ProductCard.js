@@ -1,14 +1,31 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import ShowImage from "./ShowImage";
 import { addItem } from "../utils/cartHelpers";
+
+import { addToWishlist } from "../actions/wishlistActions";
 
 const ProductCard = ({ product }) => {
   const [redirect, setRedirect] = useState(false);
 
+  const dispatch = useDispatch();
+
   const addToCart = () => {
     // console.log('added');
     addItem(product, setRedirect(true));
+  };
+
+  const handleAddToWishlist = (e) => {
+    e.preventDefault();
+    console.log("added to wishlist");
+    dispatch(addToWishlist({ productId: product._id }));
+
+    // addToWishlist(product._id, user.token).then((res) => {
+    //   console.log("ADDED TO WISHLIST", res.data);
+    //   toast.success("Added to wishlist");
+    //   history.push("/user/wishlist");
+    // });
   };
 
   const shouldRedirect = (redirect) => {
@@ -32,6 +49,7 @@ const ProductCard = ({ product }) => {
             <i className="fas fa-search" />
           </Link>
           <a
+            onClick={handleAddToWishlist}
             href
             className="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
           >

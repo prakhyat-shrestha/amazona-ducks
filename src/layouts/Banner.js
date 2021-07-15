@@ -3,10 +3,11 @@ import React from "react";
 const Banner = () => {
   return (
     <div
-      className="bg-cover bg-no-repeat bg-center py-36"
-      style={{ backgroundImage: 'url("images/banner-bg.jpg")' }}
+      // className="bg-cover bg-no-repeat bg-center py-36"
+      className="bg-cover bg-no-repeat bg-center h-60"
+      style={{ backgroundImage: 'url("images/banner-bg2.jpg")' }}
     >
-      <div className="container">
+      {/* <div className="container">
         <h1 className="text-6xl text-gray-800 font-medium mb-4 capitalize">
           best collection for <br /> home decoration
         </h1>
@@ -24,7 +25,7 @@ const Banner = () => {
             Shop Now
           </a>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

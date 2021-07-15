@@ -8,6 +8,7 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import SigninScreen from "./screens/SigninScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import ShopScreen from "./screens/ShopScreen";
 import CheckoutScreen from "./screens/CheckoutScreen";
 import OrderScreen from "./screens/OrderScreen";
 import Dashboard from "./screens/DashboardScreen";
@@ -18,6 +19,7 @@ import UpdateProduct from "./screens/admin/UpdateProduct";
 import ManageProducts from "./screens/admin/ManageProducts";
 import Orders from "./screens/admin/Orders";
 import ProfileScreen from "./screens/ProfileScreen";
+import WishlistScreen from "./screens/WishlistScreen";
 import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 
 function App() {
@@ -35,8 +37,10 @@ function App() {
         ></Route>
         <Route path="/signin" exact component={SigninScreen}></Route>
         <Route path="/register" exact component={RegisterScreen}></Route>
+        <Route path="/shop" exact component={ShopScreen}></Route>
         <PrivateRoute path="/user/dashboard" exact component={Dashboard} />
         <PrivateRoute path="/profile/:userId" exact component={ProfileScreen} />
+        <PrivateRoute path="/wishlist/" exact component={WishlistScreen} />
         <PrivateRoute
           path="/user/orders"
           exact

@@ -14,6 +14,7 @@ import {
   userDetailsReducer,
   userUpdateProfileReducer,
 } from "./userReducers";
+import { wishlistReducer } from "./wishlistReducers";
 import {
   orderCreateReducer,
   orderMineListReducer,
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   orderList: orderListReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  userWishlist: wishlistReducer,
 });
 
 export default rootReducer;
