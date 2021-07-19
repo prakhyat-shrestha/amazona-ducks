@@ -1,13 +1,11 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layouts/Layout";
 import Banner from "../layouts/Banner";
 import Feature from "../layouts/Feature";
 import AdSection from "../layouts/AdSection";
-// import { getProducts } from "./apiCore";
-
 import { listProducts } from "../actions/productActions";
-
+import { getCategories } from "../actions/categoryActions";
 import ProductCard from "../components/ProductCard";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
@@ -18,7 +16,15 @@ const HomeScreen = () => {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
+  const categoryList = useSelector((state) => state.categoryList);
+  const {
+    loading: categoryLoading,
+    error: categoryError,
+    categories,
+  } = categoryList;
+
   useEffect(() => {
+    dispatch(getCategories("createdAt"));
     dispatch(listProducts("createdAt"));
   }, [dispatch]);
 
@@ -27,7 +33,13 @@ const HomeScreen = () => {
       <Banner />
       <Feature />
 
-      <CategoryHome />
+      {categoryLoading ? (
+        "loading categories"
+      ) : categoryError ? (
+        "Oops"
+      ) : (
+        <CategoryHome categories={categories} />
+      )}
 
       {loading ? (
         <LoadingBox></LoadingBox>

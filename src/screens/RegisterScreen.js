@@ -35,7 +35,7 @@ const RegisterScreen = (props) => {
   const signUpForm = () => (
     <div className="container py-16">
       {loading && <LoadingBox></LoadingBox>}
-      {error && <MessageBox variant="danger">{error}</MessageBox>}
+
       <div className="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
         <h2 className="text-2xl uppercase font-medium mb-1">Register</h2>
         <p className="text-gray-600 mb-6 text-sm">
@@ -86,13 +86,14 @@ const RegisterScreen = (props) => {
                 className="text-gray-600 ml-3 cursor-pointer"
               >
                 I have read and agree to the{" "}
-                <Link to="/" className="text-primary">
+                <Link to="/terms" className="text-primary">
                   {" "}
                   terms and conditions
                 </Link>
               </label>
             </div>
           </div>
+          {error && <MessageBox variant="red">{error}</MessageBox>}
           <div className="mt-4">
             <button
               onClick={submitHandler}

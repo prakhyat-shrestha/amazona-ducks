@@ -31,21 +31,28 @@ const AccountLayout = ({ className, children, history }) => {
             className="flex items-center my-1 px-4 py-3 text-white border-l-4 border-trasparent hover:border-blue-600 hover:bg-gray-900 transition"
           >
             <i className="fas fa-layer-group w-5 mr-3" />
-            category
+            create category
+          </Link>
+          <Link
+            to="/admin/categories"
+            className="flex items-center my-1 px-4 py-3 text-white border-l-4 border-trasparent hover:border-blue-600 hover:bg-gray-900 transition"
+          >
+            <i className="fas fa-box  w-5 mr-3"></i>
+            manage categories
           </Link>
           <Link
             to="/create/product"
             className="flex items-center my-1 px-4 py-3 text-white border-l-4 border-trasparent hover:border-blue-600 hover:bg-gray-900 transition"
           >
             <i className="fas fa-box  w-5 mr-3"></i>
-            product
+            create product
           </Link>
           <Link
             to="/admin/products"
             className="flex items-center my-1 px-4 py-3 text-white border-l-4 border-trasparent hover:border-blue-600 hover:bg-gray-900 transition"
           >
             <i className="fas fa-box  w-5 mr-3"></i>
-            mangage products
+            manage products
           </Link>
           <Link
             to="/admin/orders"

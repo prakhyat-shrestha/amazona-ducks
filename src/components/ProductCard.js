@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import ShowImage from "./ShowImage";
 import { addItem } from "../utils/cartHelpers";
@@ -7,6 +8,8 @@ import { addItem } from "../utils/cartHelpers";
 import { addToWishlist } from "../actions/wishlistActions";
 
 const ProductCard = ({ product }) => {
+  const history = useHistory();
+
   const [redirect, setRedirect] = useState(false);
 
   const dispatch = useDispatch();
@@ -41,7 +44,10 @@ const ProductCard = ({ product }) => {
         {shouldRedirect(redirect)}
         {/* <img src="images/products/product9.jpg" className="full" /> */}
         <ShowImage item={product} url="product" />
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+        <div
+          onClick={() => history.push(`/product/${product._id}`)}
+          className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition cursor-pointer"
+        >
           <Link
             to={`/product/${product._id}`}
             className="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"

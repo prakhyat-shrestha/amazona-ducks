@@ -22,7 +22,13 @@ import {
 } from "./orderReducers";
 
 // admin
-import { categoryCreateReducer, categoryListReducer } from "./categoryReducers";
+import {
+  categoryCreateReducer,
+  categoryListReducer,
+  categoryDetailsReducer,
+  categoryUpdateReducer,
+  categoryDeleteReducer,
+} from "./categoryReducers";
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -35,6 +41,9 @@ const rootReducer = combineReducers({
   //admin
   categoryCreate: categoryCreateReducer,
   categoryList: categoryListReducer,
+  categoryDetails: categoryDetailsReducer,
+  categoryUpdate: categoryUpdateReducer,
+  categoryDelete: categoryDeleteReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
   productDelete: productDeleteReducer,

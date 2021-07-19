@@ -1,4 +1,6 @@
 import Axios from "axios";
+import { toast } from "react-toastify";
+
 import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
@@ -7,6 +9,7 @@ import {
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
   USER_SIGNOUT,
+  USER_RESET,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -15,6 +18,8 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
 } from "../constants/userConstants";
 import { API } from "../config";
+
+//const notify = (msg) => toast(msg);
 
 export const register = (name, email, password) => async (dispatch) => {
   dispatch({ type: USER_REGISTER_REQUEST, payload: { email, password } });
@@ -30,12 +35,13 @@ export const register = (name, email, password) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
+    console.log("errror is", error.response);
     dispatch({
       type: USER_REGISTER_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error.response && error.response.data.error
+          ? "*" + error.response.data.error
+          : "Oops Something went wrong",
     });
   }
 };
@@ -46,13 +52,14 @@ export const signin = (email, password) => async (dispatch) => {
     const { data } = await Axios.post(`${API}/signin`, { email, password });
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
+    toast.dark("Successfully Logged In !");
   } catch (error) {
     dispatch({
       type: USER_SIGNIN_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error.response && error.response.data.error
+          ? "*" + error.response.data.error
+          : "Oops Something went wrong",
     });
   }
 };
@@ -60,7 +67,12 @@ export const signin = (email, password) => async (dispatch) => {
 export const signout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
   localStorage.removeItem("cartItems");
+  toast.dark("Successfully Logged Out !");
   dispatch({ type: USER_SIGNOUT });
+};
+
+export const resetlogin = () => (dispatch) => {
+  dispatch({ type: USER_RESET });
 };
 
 export const detailsUser = (userId) => async (dispatch, getState) => {

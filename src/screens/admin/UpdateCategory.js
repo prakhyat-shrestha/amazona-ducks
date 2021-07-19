@@ -2,38 +2,63 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import AdminLayout from "../../layouts/AdminLayout";
-import { createCategory } from "../../actions/categoryActions";
+import { detailsCategory, updateCategory } from "../../actions/categoryActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 
-const AddCategory = () => {
-  // const [name, setName] = useState("");
-  // const [photo, setPhoto] = useState("");
+import { API } from "../../config";
 
+import { CATEGORY_UPDATE_RESET } from "../../constants/categoryConstants";
+
+const UpdateCategory = ({ match, history }) => {
+  const categoryId = match.params.categoryId;
   const [values, setValues] = useState({
     name: "",
     photo: "",
     formData: "",
   });
 
+  const categoryDetails = useSelector((state) => state.categoryDetails);
+  const { loading, error, category } = categoryDetails;
+
+  const categoryUpdate = useSelector((state) => state.categoryUpdate);
+  const { success: successUpdate } = categoryUpdate;
+
   const ref = useRef();
 
   const { name, formData } = values;
 
-  // const handleChange = (e) => {
-  //   setName(e.target.value);
-  // };
+  const dispatch = useDispatch();
 
   const init = () => {
-    setValues({
-      ...values,
-      formData: new FormData(),
-    });
+    dispatch(detailsCategory(categoryId));
   };
 
   useEffect(() => {
     init();
+    setValues({
+      ...values,
+      formData: new FormData(),
+    });
   }, []);
+
+  useEffect(() => {
+    if (successUpdate) {
+      history.push("/admin/categories");
+    }
+
+    if (!category || category._id !== categoryId || successUpdate) {
+      dispatch({ type: CATEGORY_UPDATE_RESET });
+      dispatch(detailsCategory(categoryId));
+    } else {
+      //console.log("jesusjesus", category);
+      setValues({
+        ...values,
+        name: category.name,
+        formData: new FormData(),
+      });
+    }
+  }, [category, dispatch, categoryId, successUpdate, history]);
 
   const handleChange = (name) => (event) => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
@@ -41,27 +66,15 @@ const AddCategory = () => {
     setValues({ ...values, [name]: value });
   };
 
-  const categoryCreate = useSelector((state) => state.categoryCreate);
-
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    category: createdCategory,
-  } = categoryCreate;
-
-  const dispatch = useDispatch();
-
-  const createHandler = (e) => {
+  const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(createCategory(formData));
+    console.log("update data", values);
+    dispatch(updateCategory(categoryId, formData));
   };
 
-  const newCategoryForm = () => (
+  const updateCategoryForm = () => (
     <div className="mt-1  w-1/3">
-      {loadingCreate && <LoadingBox></LoadingBox>}
-      {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
-      <form className="mb-3" onSubmit={createHandler}>
+      <form className="mb-3" onSubmit={updateHandler}>
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -73,7 +86,12 @@ const AddCategory = () => {
               name="photo"
               ref={ref}
               accept="image/*"
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  sm:text-sm border-gray-300 rounded-md"
+              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  sm:text-sm border-gray-300 rounded-md mb-3"
+            />
+            <img
+              src={`${API}/category/photo/${category._id}`}
+              alt={category.name}
+              className="w-56"
             />
           </div>
 
@@ -97,7 +115,7 @@ const AddCategory = () => {
               type="submit"
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Create Category
+              Update Category
             </button>
           </div>
         </div>
@@ -105,40 +123,18 @@ const AddCategory = () => {
     </div>
   );
 
-  const showSuccess = () => {
-    if (successCreate) {
-      return (
-        <div className="text-white text-sm bg-green-500 p-5 w-1/3 mb-5">
-          <h3>{name} is created</h3>
-        </div>
-      );
-    }
-  };
-
-  const showError = () => {
-    if (errorCreate) {
-      return (
-        <div className="text-white text-sm bg-red-300 p-5 w-1/3 mb-5">
-          <h3>Category should be unique</h3>
-        </div>
-      );
-    }
-  };
-
-  useEffect(() => {
-    if (successCreate) {
-      setValues({ name: "" });
-      ref.current.value = "";
-      // setName("");
-      // dispatch({ type: PRODUCT_CREATE_RESET });
-    }
-  }, [createdCategory, successCreate]);
+  // useEffect(() => {
+  //   if (successCreate) {
+  //     setValues({ name: "" });
+  //     ref.current.value = "";
+  //     // setName("");
+  //     // dispatch({ type: PRODUCT_CREATE_RESET });
+  //   }
+  // }, [createdCategory, successCreate]);
 
   return (
-    <AdminLayout>
-      <div>{newCategoryForm()}</div>
-    </AdminLayout>
+    <AdminLayout>{category && <div>{updateCategoryForm()}</div>}</AdminLayout>
   );
 };
 
-export default AddCategory;
+export default UpdateCategory;

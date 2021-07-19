@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import Layout from "../layouts/Layout";
 import { signin } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
@@ -12,10 +13,10 @@ const Signin = (props) => {
 
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
-    : "/admin/dashboard";
+    : "/";
 
   const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo, loading, error } = userSignin;
+  const { userInfo, loading, error, logoutSuccessMessage } = userSignin;
 
   const dispatch = useDispatch();
 
@@ -34,6 +35,7 @@ const Signin = (props) => {
     <div className="container py-16">
       {loading && <LoadingBox></LoadingBox>}
       {error && <MessageBox variant="red">{error}</MessageBox>}
+
       <div className="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
         <h2 className="text-2xl uppercase font-medium mb-1">Login</h2>
         <p className="text-gray-600 mb-6 text-sm">
@@ -88,7 +90,7 @@ const Signin = (props) => {
         </form>
         <p className="mt-4 text-gray-600 text-center">
           New account{" "}
-          <Link to="/" className="text-primary">
+          <Link to="/register" className="text-primary">
             Register now
           </Link>
         </p>

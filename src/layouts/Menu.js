@@ -19,7 +19,7 @@ const Menu = ({ history }) => {
 
   const logoutHandler = () => {
     dispatch(signout());
-    history.push("/");
+    history.push("/signin");
   };
 
   return (

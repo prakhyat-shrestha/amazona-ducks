@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminLayout from "../../layouts/AdminLayout";
 import { getCategories } from "../../actions/categoryActions";
@@ -17,6 +17,8 @@ const AddProduct = () => {
     redirectToProfile: false,
     formData: "",
   });
+
+  const ref = useRef();
 
   const categoryList = useSelector((state) => state.categoryList);
 
